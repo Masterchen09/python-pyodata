@@ -380,6 +380,7 @@ class EntityGetRequest(ODataHttpRequest):
 
     def get_query_params(self):
         qparams = super(EntityGetRequest, self).get_query_params()
+        qparams['$format'] = 'json'
 
         if self._select is not None:
             qparams['$select'] = self._select
@@ -474,6 +475,11 @@ class EntityCreateRequest(ODataHttpRequest):
 
     def get_default_headers(self):
         return {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Requested-With': 'X'}
+
+    def get_query_params(self):
+        qparams = super(EntityCreateRequest, self).get_query_params()
+        qparams['$format'] = 'json'
+        return qparams
 
     @staticmethod
     def _build_values(entity_type, entity):
@@ -574,6 +580,11 @@ class EntityModifyRequest(ODataHttpRequest):
 
     def get_default_headers(self):
         return {'Accept': 'application/json', 'Content-Type': 'application/json'}
+
+    def get_query_params(self):
+        qparams = super(EntityModifyRequest, self).get_query_params()
+        qparams['$format'] = 'json'
+        return qparams
 
     def set(self, **kwargs):
         """Set properties to be changed."""
@@ -686,6 +697,9 @@ class QueryRequest(ODataHttpRequest):
             return {}
 
         qparams = super(QueryRequest, self).get_query_params()
+
+        if not self._count:
+            qparams['$format'] = 'json'
 
         if self._top is not None:
             qparams['$top'] = self._top

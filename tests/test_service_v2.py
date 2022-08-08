@@ -40,7 +40,7 @@ def test_create_entity(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/MasterEntities",
+        f"{service.url}/MasterEntities?$format=json",
         headers={
             'Content-type': 'application/json',
             'ETag':  'W/\"J0FtZXJpY2FuIEFpcmxpbmVzJw==\"'
@@ -69,7 +69,7 @@ def test_create_entity_code_201(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/MasterEntities",
+        f"{service.url}/MasterEntities?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {
             'Key': '12345',
@@ -91,7 +91,7 @@ def test_create_entity_code_400(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/MasterEntities",
+        f"{service.url}/MasterEntities?$format=json",
         headers={'Content-type': 'application/json'},
         json={},
         status=400)
@@ -136,7 +136,7 @@ def test_create_entity_nested(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/Cars",
+        f"{service.url}/Cars?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {
             'Name': 'Hadraplan',
@@ -165,7 +165,7 @@ def test_create_entity_header_x_requested_with(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/Cars",
+        f"{service.url}/Cars?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {
             'Name': 'Hadraplan',
@@ -187,7 +187,7 @@ def test_create_entity_nested_list(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/Customers",
+        f"{service.url}/Customers?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {
             'Name': 'John',
@@ -211,7 +211,7 @@ def test_get_entity_property(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/MasterEntities('12345')",
+        f"{service.url}/MasterEntities('12345')?$format=json",
         headers={
             'ETag': 'W/\"J0FtZXJpY2FuIEFpcmxpbmVzJw==\"',
             'Content-type': 'application/json',
@@ -232,7 +232,7 @@ def test_entity_url(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/MasterEntities('12345')",
+        f"{service.url}/MasterEntities('12345')?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {'Key': '12345'}},
         status=200)
@@ -249,7 +249,7 @@ def test_entity_entity_set_name(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/MasterEntities('12345')",
+        f"{service.url}/MasterEntities('12345')?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {'Key': '12345'}},
         status=200)
@@ -266,7 +266,7 @@ def test_entity_key_simple(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/MasterEntities('12345')",
+        f"{service.url}/MasterEntities('12345')?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {'Key': '12345'}},
         status=200)
@@ -284,7 +284,7 @@ def test_entity_key_complex(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/TemperatureMeasurements(Sensor='sensor1',Date=datetime'2017-12-24T18:00:00')",
+        f"{service.url}/TemperatureMeasurements(Sensor='sensor1',Date=datetime'2017-12-24T18:00:00')?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {
             'Sensor': 'sensor1',
@@ -377,7 +377,7 @@ def test_function_import_primitive(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/sum?A=2&B=4",
+        f"{service.url}/sum?$format=json&A=2&B=4",
         headers={'Content-type': 'application/json'},
         json={'d': 6},
         status=200)
@@ -394,7 +394,7 @@ def test_function_import_escape_parameter(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/retrieve?Param=%27%26|%2B|%3D|%2F|%3F|+|%40%27",
+        f"{service.url}/retrieve?$format=json&Param=%27%26|%2B|%3D|%2F|%3F|+|%40%27",
         headers={'Content-type': 'application/json'},
         json={'d': True},
         status=200)
@@ -414,7 +414,7 @@ def test_function_import_primitive_unexpected_status_code(mock_warning, service)
 
     responses.add(
         responses.GET,
-        f"{service.url}/sum?A=2&B=4",
+        f"{service.url}/sum?$format=json&A=2&B=4",
         headers={'Content-type': 'application/json'},
         json={'d': 6},
         status=201)
@@ -591,7 +591,7 @@ def test_function_import_entity(service):
 
     responses.add(
         responses.GET,
-        f'{service.url}/get_max',
+        f'{service.url}/get_max?$format=json',
         headers={'Content-type': 'application/json'},
         json={'d': {
             'Sensor': 'Sensor-address',
@@ -614,7 +614,7 @@ def test_update_entity(service):
 
     responses.add(
         responses.PATCH,
-        f"{service.url}/TemperatureMeasurements(Sensor='sensor1',Date=datetime'2017-12-24T18:00:00')",
+        f"{service.url}/TemperatureMeasurements(Sensor='sensor1',Date=datetime'2017-12-24T18:00:00')?$format=json",
         json={'d': {
             'Sensor': 'Sensor-address',
             'Date': "/Date(1714138400000)/",
@@ -872,7 +872,7 @@ def test_get_entities(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees",
+        f"{service.url}/Employees?$format=json",
         json={'d': {
             'results': [
                 {
@@ -902,7 +902,7 @@ def test_get_null_value_from_null_preserving_service(service_retain_null):
 
     responses.add(
         responses.GET,
-        f"{service_retain_null.url}/Employees",
+        f"{service_retain_null.url}/Employees?$format=json",
         json={'d': {
             'results': [
                 {
@@ -930,7 +930,7 @@ def test_get_null_value_from_non_null_preserving_service(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees",
+        f"{service.url}/Employees?$format=json",
         json={'d': {
             'results': [
                 {
@@ -958,7 +958,7 @@ def test_get_non_nullable_value(service_retain_null):
 
     responses.add(
         responses.GET,
-        f"{service_retain_null.url}/Employees",
+        f"{service_retain_null.url}/Employees?$format=json",
         json={'d': {
             'results': [
                 {
@@ -983,7 +983,7 @@ def test_navigation_multi(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees(23)/Addresses",
+        f"{service.url}/Employees(23)/Addresses?$format=json",
         json={'d': {
             'results': [
                 {
@@ -1027,7 +1027,7 @@ def test_navigation(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees(23)/Addresses(456)",
+        f"{service.url}/Employees(23)/Addresses(456)?$format=json",
         json={'d': {
             'ID': 456,
             'Street': 'Baker Street',
@@ -1053,7 +1053,7 @@ def test_navigation_multi_on1(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Customers('Mammon')/ReferredBy",
+        f"{service.url}/Customers('Mammon')/ReferredBy?$format=json",
         headers={'Content-type': 'application/json'},
         json = { 'd': {
             'Name': 'John',
@@ -1081,7 +1081,7 @@ def test_navigation_1on1(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Cars('Hadraplan')/IDPic",
+        f"{service.url}/Cars('Hadraplan')/IDPic?$format=json",
         headers={'Content-type': 'application/json'},
         json = { 'd': {
             'CarName': 'Hadraplan',
@@ -1133,7 +1133,7 @@ def test_navigation_when_nes_in_another_ns(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Customers('Mammon')/Orders",
+        f"{service.url}/Customers('Mammon')/Orders?$format=json",
         json={'d': {'results' : [{
             'Number': '456',
             'Owner': 'Mammon',
@@ -1160,7 +1160,7 @@ def test_entity_get_value_1on1_with_proxy(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Cars('Hadraplan')/IDPic",
+        f"{service.url}/Cars('Hadraplan')/IDPic?$format=json",
         headers={'Content-type': 'application/json'},
         json = { 'd': {
             'CarName': 'Hadraplan',
@@ -1211,7 +1211,7 @@ def test_entity_get_value_with_proxy(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/CarIDPics('Hadraplan')",
+        f"{service.url}/CarIDPics('Hadraplan')?$format=json",
         headers={'Content-type': 'application/json'},
         json = { 'd': {
             'CarName': 'Hadraplan',
@@ -1262,7 +1262,7 @@ def test_navigation_create_entity(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/Employees(23)/Addresses",
+        f"{service.url}/Employees(23)/Addresses?$format=json",
         json={'d': {
             'ID': 42,
             'Street': 'Holandska',
@@ -1292,7 +1292,7 @@ def test_navigation_from_entity_multi(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees(23)",
+        f"{service.url}/Employees(23)?$format=json",
         json={'d': {
             'ID': 23,
             'NameFirst': 'Rob',
@@ -1302,7 +1302,7 @@ def test_navigation_from_entity_multi(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees(23)/Addresses",
+        f"{service.url}/Employees(23)/Addresses?$format=json",
         json={'d': {
             'results': [
                 {
@@ -1352,7 +1352,7 @@ def test_navigation_from_entity(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees(23)",
+        f"{service.url}/Employees(23)?$format=json",
         json={'d': {
             'ID': 23,
             'NameFirst': 'Rob',
@@ -1362,7 +1362,7 @@ def test_navigation_from_entity(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees(23)/Addresses(456)",
+        f"{service.url}/Employees(23)/Addresses(456)?$format=json",
         json={'d': {
             'ID': 456,
             'Street': 'Baker Street',
@@ -1395,7 +1395,7 @@ def test_get_entity(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees(23)",
+        f"{service.url}/Employees(23)?$format=json",
         json={'d': {
             'ID': 23,
             'NameFirst': 'Rob',
@@ -1421,7 +1421,7 @@ def test_get_entity_expanded(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees(23)",
+        f"{service.url}/Employees(23)?$format=json&$expand=Addresses",
         json={'d': {
             'ID': 23,
             'NameFirst': 'Rob',
@@ -1766,7 +1766,7 @@ def test_inlinecount(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees?$inlinecount=allpages",
+        f"{service.url}/Employees?$format=json&$inlinecount=allpages",
         json={'d': {
             '__count': 3,
             'results': [
@@ -1802,7 +1802,7 @@ def test_inlinecount_with_skip(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees?$inlinecount=allpages&$skip=1",
+        f"{service.url}/Employees?$format=json&$inlinecount=allpages&$skip=1",
         json={'d': {
             '__count': 3,
             'results': [
@@ -1834,7 +1834,7 @@ def test_navigation_inlinecount(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees(23)/Addresses?$inlinecount=allpages",
+        f"{service.url}/Employees(23)/Addresses?$format=json&$inlinecount=allpages",
         json={'d': {
             '__count': 3,
             'results': [
@@ -1871,7 +1871,7 @@ def test_inlinecount_with_filter(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees(23)/Addresses?$inlinecount=allpages&%24filter=City%20eq%20%27London%27",
+        f"{service.url}/Employees(23)/Addresses?$format=json&$inlinecount=allpages&%24filter=City%20eq%20%27London%27",
         json={'d': {
             '__count': 2,
             'results': [
@@ -1904,7 +1904,7 @@ def test_total_count_exception(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees",
+        f"{service.url}/Employees?$format=json",
         json={'d': {
             'results': [
                 {
@@ -2041,10 +2041,10 @@ def test_partial_listing(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees?$inlinecount=allpages",
+        f"{service.url}/Employees?$format=json&$inlinecount=allpages",
         json={'d': {
             '__count': 3,
-            '__next': f"{service.url}/Employees?$inlinecount=allpages&$skiptoken='opaque'",
+            '__next': f"{service.url}/Employees?$format=json&$inlinecount=allpages&$skiptoken='opaque'",
             'results': [
                 {
                     'ID': 21,
@@ -2061,7 +2061,7 @@ def test_partial_listing(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/Employees?$inlinecount=allpages&$skiptoken='opaque'",
+        f"{service.url}/Employees?$format=json&$inlinecount=allpages&$skiptoken='opaque'",
         json={'d': {
             '__count': 3,
             'results': [
@@ -2442,7 +2442,7 @@ def test_create_entity_with_utc_datetime(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/TemperatureMeasurements",
+        f"{service.url}/TemperatureMeasurements?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {
             'Sensor': 'Sensor1',
@@ -2490,7 +2490,7 @@ def test_create_entity_with_non_utc_datetime(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/TemperatureMeasurements",
+        f"{service.url}/TemperatureMeasurements?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {
             'Sensor': 'Sensor1',
@@ -2527,7 +2527,7 @@ def test_null_datetime(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/TemperatureMeasurements",
+        f"{service.url}/TemperatureMeasurements?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {
             'results': [
@@ -2551,7 +2551,7 @@ def test_parsing_of_datetime_before_unix_time(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/TemperatureMeasurements",
+        f"{service.url}/TemperatureMeasurements?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {
             'Sensor': 'Sensor1',
@@ -2587,7 +2587,7 @@ def test_parsing_of_datetimeoffset(service, json_input, expected):
 
     responses.add(
         responses.GET,
-        f"{service.url}/TemperatureMeasurements",
+        f"{service.url}/TemperatureMeasurements?$format=json",
         headers={'Content-type': 'application/json'},
         json={'d': {
             'results': [
@@ -2612,7 +2612,7 @@ def test_mismatched_etags_in_body_and_header(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/MasterEntities",
+        f"{service.url}/MasterEntities?$format=json",
         headers={
             'Content-type': 'application/json',
             'ETag':  'W/\"JEF\"'
@@ -2653,7 +2653,7 @@ def test_custom_with_get_entity(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/MasterEntities('12345')?foo=bar",
+        f"{service.url}/MasterEntities('12345')?$format=json&foo=bar",
         headers={'Content-type': 'application/json'},
         json={'d': {'Key': '12345'}},
         status=200)
@@ -2667,13 +2667,13 @@ def test_custom_with_get_entity_url_params(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/MasterEntities('12345')?foo=bar",
+        f"{service.url}/MasterEntities('12345')?$format=json&foo=bar",
         headers={'Content-type': 'application/json'},
         json={'d': {'Key': '12345'}},
         status=200)
 
     oDataHttpRequest = service.entity_sets.MasterEntities.get_entity('12345').custom("foo", "bar")
-    assert oDataHttpRequest.get_query_params() == {'foo': 'bar'}
+    assert oDataHttpRequest.get_query_params() == {'$format': 'json', 'foo': 'bar'}
     assert oDataHttpRequest.get_path() == "MasterEntities('12345')"
 
     entity = oDataHttpRequest.execute()
@@ -2685,13 +2685,13 @@ def test_multiple_custom_with_get_entity_url_params(service):
 
     responses.add(
         responses.GET,
-        f"{service.url}/MasterEntities('12345')?foo=bar&$fizz=buzz",
+        f"{service.url}/MasterEntities('12345')?$format=json&foo=bar&$fizz=buzz",
         headers={'Content-type': 'application/json'},
         json={'d': {'Key': '12345'}},
         status=200)
 
     oDataHttpRequest = service.entity_sets.MasterEntities.get_entity('12345').custom("foo", "bar").custom("$fizz", "buzz")
-    assert oDataHttpRequest.get_query_params() == {'foo': 'bar', '$fizz': 'buzz'}
+    assert oDataHttpRequest.get_query_params() == {'$format': 'json', 'foo': 'bar', '$fizz': 'buzz'}
     assert oDataHttpRequest.get_path() == "MasterEntities('12345')"
 
     entity = oDataHttpRequest.execute()
@@ -2724,7 +2724,7 @@ def test_custom_with_create_entity_url_params(service):
 
     responses.add(
         responses.POST,
-        f"{service.url}/MasterEntities?foo=bar",
+        f"{service.url}/MasterEntities?$format=json&foo=bar",
         headers={
             'Content-type': 'application/json',
             'ETag':  'W/\"J0FtZXJpY2FuIEFpcmxpbmVzJw==\"'
@@ -2740,7 +2740,7 @@ def test_custom_with_create_entity_url_params(service):
 
     oDataHttpRequest = service.entity_sets.MasterEntities.create_entity().set(**{'Key': '1234', 'Data': 'abcd'}).custom("foo", "bar")
 
-    assert oDataHttpRequest.get_query_params() == {'foo': 'bar'}
+    assert oDataHttpRequest.get_query_params() == {'$format': 'json', 'foo': 'bar'}
     assert oDataHttpRequest.get_path() == 'MasterEntities'
     assert oDataHttpRequest.get_method() == 'POST'
     assert oDataHttpRequest.get_body() == '{"Key": "1234", "Data": "abcd"}'
